@@ -31,23 +31,31 @@ export function ServiceTable({itemCost}: { itemCost: number }) {
         <DataGrid
             columns={columns(minSum, itemCost)}
             rows={services}
-            rowCount={services.length}
+            rowCount={2}
             hideFooter
             hideFooterPagination
             autoHeight
+            disableColumnMenu
+            disableColumnFilter
+            disableColumnSelector
+            disableSelectionOnClick
             processRowUpdate={(row,_) => updateService(row)}
+            sx={{
+                '& .MuiDataGrid-cell:focus': {
+                outline: 'none',
+            },
+            }}
         />
     );
 }
 
 const columns = (minSum: number, itemCost: number) => [
-    {field: "name", headerName: "Lieferant"},
-    {field: "itemCost", headerName: "Warenwert", valueGetter: () => itemCost},
-    {field: "deliveryFee", headerName: "Lieferkosten", editable: true},
-    {field: "discountPercent", headerName: "Rabatt %", editable: true},
-    {field: "discountAbsolute", headerName: "Rabatt €", editable: true},
+    {field: "name", headerName: "Lieferdienst", flex: 1},
+    {field: "deliveryFee", headerName: "Lieferkosten", editable: true, type: "number", align: "right", headerAlign: "right"},
+    {field: "discountPercent", headerName: "Rabatt %", editable: true, type: "number", align: "right", headerAlign: "right"},
+    {field: "discountAbsolute", headerName: "Rabatt €", editable: true, type: "number", align: "right", headerAlign: "right"},
     {
-        field: "sum", headerName: "Summe",
+        field: "sum", headerName: "Summe", align: "right", headerAlign: "right",
         valueGetter: (params: GridValueGetterParams<Service, Service>) => {
            return calcSum(itemCost, params.row);
         },
@@ -60,13 +68,12 @@ const columns = (minSum: number, itemCost: number) => [
             }
         }
     },
-] as GridColumns<Service>
+].map(r => ({sortable: false, ...r})) as GridColumns<Service>
 
 const initServices = [
     {
         id: 1,
         name: "Lieferando",
-        itemCost: undefined,
         deliveryFee: 2.8,
         discountPercent: 10,
         discountAbsolute: 0,
@@ -75,7 +82,6 @@ const initServices = [
     {
         id: 2,
         name: "Wolt",
-        itemCost: undefined,
         deliveryFee: 2,
         discountPercent: 0,
         discountAbsolute: 0,
@@ -84,7 +90,6 @@ const initServices = [
     {
         id: 3,
         name: "Uber",
-        itemCost: undefined,
         deliveryFee: 2,
         discountPercent: 0,
         discountAbsolute: 0,

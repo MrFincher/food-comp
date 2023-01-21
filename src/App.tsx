@@ -1,28 +1,25 @@
 import React, {useState} from 'react';
 import './App.css';
 import {ServiceTable} from "./components/ServiceTable";
-import {Stack, TextField} from "@mui/material";
+import {createTheme, CssBaseline, Stack, TextField, ThemeProvider} from "@mui/material";
+import {Main} from "./components/Main";
 
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+        background: {
+            default: "#484848"
+        }
+    },
+});
 
 function App() {
-
-    const [itemCost, setItemCost] = useState(0);
-
-    function onItemCostChange(event: React.ChangeEvent<HTMLInputElement>) {
-            setItemCost(parseFloat(event.target.value))
-    }
-
     return (
-        <Stack sx={{height: "100vh", padding: "5rem"}} spacing={2}>
-            <TextField type={"number"}
-                       onChange={onItemCostChange}
-                       label={"Warenwert"}
-                       sx={{width: 140}}
-            />
-            <ServiceTable itemCost={itemCost} />
-        </Stack>
+        <ThemeProvider theme={darkTheme}>
+            <CssBaseline/>
+            <Main/>
+        </ThemeProvider>
     );
 }
-
 
 export default App;
