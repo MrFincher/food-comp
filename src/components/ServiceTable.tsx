@@ -39,11 +39,14 @@ export function ServiceTable({itemCost}: { itemCost: number }) {
             disableColumnFilter
             disableColumnSelector
             disableSelectionOnClick
-            processRowUpdate={(row,_) => updateService(row)}
+            processRowUpdate={(row, _) => updateService(row)}
             sx={{
                 '& .MuiDataGrid-cell:focus': {
-                outline: 'none',
-            },
+                    outline: 'none',
+                },
+                '& .MuiDataGrid-columnHeader:focus': {
+                    outline: 'none',
+                },
             }}
         />
     );
@@ -51,19 +54,39 @@ export function ServiceTable({itemCost}: { itemCost: number }) {
 
 const columns = (minSum: number, itemCost: number) => [
     {field: "name", headerName: "Lieferdienst", flex: 1},
-    {field: "deliveryFee", headerName: "Lieferkosten", editable: true, type: "number", align: "right", headerAlign: "right"},
-    {field: "discountPercent", headerName: "Rabatt %", editable: true, type: "number", align: "right", headerAlign: "right"},
-    {field: "discountAbsolute", headerName: "Rabatt €", editable: true, type: "number", align: "right", headerAlign: "right"},
+    {
+        field: "deliveryFee",
+        headerName: "Lieferkosten",
+        editable: true,
+        type: "number",
+        align: "right",
+        headerAlign: "right"
+    },
+    {
+        field: "discountPercent",
+        headerName: "Rabatt %",
+        editable: true,
+        type: "number",
+        align: "right",
+        headerAlign: "right"
+    },
+    {
+        field: "discountAbsolute",
+        headerName: "Rabatt €",
+        editable: true,
+        type: "number",
+        align: "right",
+        headerAlign: "right"
+    },
     {
         field: "sum", headerName: "Summe", align: "right", headerAlign: "right",
         valueGetter: (params: GridValueGetterParams<Service, Service>) => {
-           return calcSum(itemCost, params.row);
+            return calcSum(itemCost, params.row);
         },
         renderCell: (params: GridRenderCellParams<number, Service>) => {
             if (calcSum(itemCost, params.row) === minSum) {
                 return <strong>{params.value}</strong>
-            }
-            else {
+            } else {
                 return params.value
             }
         }

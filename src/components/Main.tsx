@@ -11,7 +11,7 @@ export function Main() {
     }
 
     return (
-        <Stack sx={{height: "100vh", padding: "1rem"}} spacing={2}>
+        <Stack sx={{ padding: "1rem"}} spacing={2}>
             <Stack direction={"row"} alignItems={"center"}>
                 Warenwert
                 <TextField type={"number"}
