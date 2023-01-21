@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
-import {ServiceTable} from "./components/ServiceTable";
-import {createTheme, CssBaseline, Stack, TextField, ThemeProvider} from "@mui/material";
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {Main} from "./components/Main";
 
 const darkTheme = createTheme({
