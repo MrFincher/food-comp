@@ -1,6 +1,7 @@
 export interface Service {
+    id: number,
     name: string,
-    itemCost: number,
+    itemCost: undefined,
     deliveryFee: number,
     discountPercent: number,
     discountAbsolute: number,
